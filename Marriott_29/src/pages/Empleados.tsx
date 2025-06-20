@@ -5,7 +5,7 @@ import {
   crearEmpleado,
   editarEmpleado,
   eliminarEmpleado,
-  Empleado,
+  Empleado, //agregar seccionde empleados igual en el backend
 } from '../services/empleadosService';
 
 export default function EmpleadosPage() {
@@ -40,7 +40,6 @@ export default function EmpleadosPage() {
       cargarEmpleados();
     } else {
       alert('Error al crear empleado');
-    }
   };
 
   const handleEditarClick = (empleado: Empleado) => {

@@ -5,7 +5,7 @@ import {
   crearPrestamo,
   devolverPrestamo,
   eliminarPrestamo,
-  Prestamo,
+  Prestamo, //afreagar seccion de prestamos igual en el backend
 } from '../services/prestamosService';
 import { getArticulosDisponibles } from '../services/articulosService';
 import { getEmpleados } from '../services/empleadosService';
