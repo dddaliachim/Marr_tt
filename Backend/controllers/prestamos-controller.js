@@ -1,14 +1,12 @@
 // backend/controllers/prestamosController.js
-const db = require('../config/db');
-
+const db = require('../db/connection');
 // Función auxiliar para obtener las siglasd del hotel:)
 const obtenerSiglasHotel = (hotel) => {
   if (hotel === 'JW Marriott') return 'JW';
   if (hotel === 'Marriott Resort') return 'MR';
   return 'XX';
 };
-
-// funcion para obtener el numero de folio incremental
+// Funcion para obtener el numero de folio incremental
 const generarFolio = async (hotel) => {
   const siglas = obtenerSiglasHotel(hotel);
   const [rows] = await db.query(
@@ -18,13 +16,12 @@ const generarFolio = async (hotel) => {
   const total = rows[0].total + 1;
   return `${siglas}-${String(total).padStart(4, '0')}`;
 };
-
-// Creamos un nuevo prestamo
+// Creamos nuevo prestamo
 const crearPrestamo = async (req, res) => {
   try {
     const { articulo_id, empleado_id, creado_por } = req.body;
 
-    // Verificamos el hotel del articulo...
+    // Verificamos el hotel del articulo
     const [[articulo]] = await db.query(
       `SELECT hotel FROM articulos WHERE id = ?`,
       [articulo_id]
@@ -32,10 +29,9 @@ const crearPrestamo = async (req, res) => {
 
     if (!articulo) return res.status(404).json({ message: 'Artículo no encontrado' });
 
-    // Generamos el folio: 
+    // Generamos el folio
     const folio = await generarFolio(articulo.hotel);
-
-    // insertamos el prestamo
+    // Insertamos el prestamo
     await db.query(
       `INSERT INTO prestamos (folio, articulo_id, empleado_id, creado_por)
        VALUES (?, ?, ?, ?)`,
@@ -69,7 +65,7 @@ const listarPrestamos = async (req, res) => {
   }
 };
 
-// Devolver el préstamo(ya no se usara el articulo)
+// Devolver el prstamo (ya no se usara el articulo)
 const devolverPrestamo = async (req, res) => {
   try {
     const { id } = req.params;

@@ -9,12 +9,17 @@ export default function Header() {
         <h1 className="text-xl font-bold tracking-wide">Marriott_Prest</h1>
       </div>
       <nav className="flex gap-4 text-sm font-medium">
+        //ESTA SERA NUESTRO "LINK" DE INCIO.
         <Link to="/" className="hover:text-pink-600">Inicio</Link>
-        <Link to="/prestamos" className="hover:text-pink-600">Prestamos</Link>
+        {/* //LLERARA A PAGINA DE PRESTAMOS */}
+        <Link to="/prestamos" className="hover:text-pink-600">Prestamos</Link> 
+         {/* //LLEVARA A PAGINA DE ARTICULOS */}
         <Link to="/articulos" className="hover:text-pink-600">Articulos</Link>
-        <Link to="/empleados" className="hover:text-pink-600">Empleados</Link>
-        <Link to="/salir" className="hover:text-pink-600">Salir</Link>
+        {/* //LEVARA A PAGINA DE EMPLEADOS */}
+                <Link to="/empleados" className="hover:text-pink-600">Empleados</Link> 
+                {/* // AYUDA A SALIR DEL BLOQUE */}
+        <Link to="/salir" className="hover:text-pink-600">Salir</Link> 
       </nav>
     </header>
   );
-}
+} 

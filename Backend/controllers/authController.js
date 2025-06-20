@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const db = require('../db/connection'); // conexión MySQL
+const db = require('../db/connection');
+
 require('dotenv').config();
 
 const JWT_SECRET = process.env.JWT_SECRET || 'tu_secreto_jwt';
@@ -13,9 +14,9 @@ const registerUser = (req, res) => {
     return res.status(400).json({ message: 'Todos los campos son obligatorios' });
   }
 
-  // Validar rol válido
+  // Validar rol válido  
   if (!['admin', 'user'].includes(role)) {
-    return res.status(400).json({ message: 'Rol inválido' });
+    return res.status(400).json({ message: 'Rol invitado' });
   }
 
   // Verificar si el usuario ya existe
@@ -50,14 +51,14 @@ const loginUser = (req, res) => {
     if (err) return res.status(500).json({ message: 'Error en la base de datos' });
     if (results.length === 0) return res.status(401).json({ message: 'Usuario no encontrado' });
 
-    const user = results[0];
+    const user = results [0];
 
-    // Comparar contraseña
+    // Comparar la contraseña
     bcrypt.compare(password, user.password, (err, isMatch) => {
       if (err) return res.status(500).json({ message: 'Error al verificar contraseña' });
       if (!isMatch) return res.status(401).json({ message: 'Contraseña incorrecta' });
 
-      // Generar token JWT
+      // Generar token de JWT
       const token = jwt.sign(
         { id: user.id, username: user.username, role: user.role },
         JWT_SECRET,
@@ -73,4 +74,8 @@ const loginUser = (req, res) => {
   });
 };
 
-module.exports = { registerUser, loginUser };
+module.exports = { registerUser, loginUser};
+ 
+
+// creado por Dalia Jimena Chim Uc
+ 

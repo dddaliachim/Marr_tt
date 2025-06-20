@@ -13,7 +13,7 @@ const verifyToken = (req, res, next) => {
   jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) return res.status(403).json({ message: 'Token expirado o inválido' });
 
-    req.user = decoded; // { id, username, role }
+    req.user = decoded; { Id, userame, rol }
     next();
   });
 };
